@@ -2,6 +2,7 @@ import Nav from '@/components/Nav'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { SessionProvider, useSession } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,13 +12,19 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession()
+
   return (
-    <html lang='en'>
-      <body className={inter.className}>
-        <Nav />
-        <div className='w-full h-20 bg-wanted-hover-gray -z-10'></div>
-        {children}
-      </body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang='en'>
+        <body className={inter.className}>
+          <Nav />
+          <div className='w-full h-20 bg-wanted-hover-gray -z-10'></div>
+          <div className='w-full flex justify-center'>
+            <div className='md:w-9/12 w-full h-fit'>{children}</div>
+          </div>
+        </body>
+      </html>
+    </SessionProvider>
   )
 }

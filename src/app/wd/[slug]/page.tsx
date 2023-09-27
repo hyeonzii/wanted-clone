@@ -1,12 +1,16 @@
 'use client'
-import { collection, getDocs } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { db } from '../../firebase'
 
-export default function JobDescription({ params }: { params: { slug: string } }) {
+import JobDescription from '@/app/wd/[slug]/(component)/JobDescription'
+import Loading from '@/app/wd/[slug]/loading'
+import { Suspense, useEffect, useState } from 'react'
+import { db } from '@/app/firebase'
+import { collection, getDocs } from 'firebase/firestore'
+
+export default function JobDescriptionPage({ params }: { params: { slug: string } }) {
   const CurrentComName = decodeURI(params.slug)
   const [list, setList] = useState<any>([])
 
+  //여기 콘솔 찍히는거 한번 확인해봐
   useEffect(() => {
     console.log(CurrentComName)
 
@@ -22,7 +26,7 @@ export default function JobDescription({ params }: { params: { slug: string } })
       console.log(tempList)
       setList(tempList)
     })
-  }, [CurrentComName])
+  }, [params])
 
   useEffect(() => {
     console.log(list)
@@ -30,9 +34,10 @@ export default function JobDescription({ params }: { params: { slug: string } })
 
   return (
     <>
-      <div className='mt-20 font-extralight text-6xl'>
-        {list.length === 0 ? '로딩중' : list[0].Type}
-      </div>
+      {/*<Suspense fallback={<Loading />}> */}
+      {list.length === 0 ? <Loading /> : <JobDescription list={list} />}
+      {/** <JobDescription list={list} />
+    </Suspense> */}
     </>
   )
 }
