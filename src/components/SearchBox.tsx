@@ -42,12 +42,13 @@ export default function SearchBox() {
         </div>
         <div className='text-wanted-gray text-lg border-l-2'>{semiTitle}</div>
         {arrow ? null : (
-          <div className='drop-shadow-lg w-48 h-48 overflow-auto fixed top-[17rem] left-48 border-wanted-gray bg-back-color'>
+          <div className='drop-shadow-lg w-48 h-48 overflow-auto fixed top-[10rem] left-[14rem] border-wanted-gray bg-back-color'>
             {arr.map((elem, index) => (
               <div
                 key={index}
                 onClick={() => {
                   router.push('/?searchType=' + elem.routerName)
+                  setTitle(elem.name)
                 }}
                 className='cursor-pointer w-full h-3 p-4 flex flex-col justify-center items-center text-sm hover:bg-wanted-hover-gray'
               >

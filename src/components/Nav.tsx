@@ -3,6 +3,8 @@
 import Logo from '@/public/wanted-logo.svg'
 import SearchIcon from '@/public/searchIcon.svg'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
 interface contentType {
   name: string
@@ -15,6 +17,15 @@ const LoginBtn = ({ name, link }: contentType) => (
   </div>
 )
 
+const LogoutBtn = () => (
+  <div
+    className=' cursor-pointer border border-wanted-gray w-fit h-10 p-2 place-content-center text-sm font-semibold rounded-md hover:bg-wanted-hover-gray'
+    onClick={() => signOut()}
+  >
+    로그아웃
+  </div>
+)
+
 export default function Nav() {
   let category: contentType[] = [
     { name: '채용', link: 'noLink' },
@@ -24,6 +35,8 @@ export default function Nav() {
     { name: '프리랜서', link: '/' },
     { name: '더보기', link: 'noLink' },
   ]
+
+  const { data: session } = useSession() //세션 정보를 가져옴
 
   return (
     <div className='w-full h-10 p-10 fixed flex justify-center bg-back-color border-b'>
@@ -46,7 +59,7 @@ export default function Nav() {
           <div className='cursor-pointer p-2 place-content-center rounded-full hover:bg-wanted-hover-gray'>
             <SearchIcon className='w-5 h-5' />
           </div>
-          <LoginBtn name='회원가입/로그인' link='/login' />
+          {session ? <LogoutBtn /> : <LoginBtn name='회원가입/로그인' link='/login' />}
           <LoginBtn name='기업서비스' link='/' />
         </div>
       </div>

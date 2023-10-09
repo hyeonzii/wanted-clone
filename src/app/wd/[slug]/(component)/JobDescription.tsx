@@ -79,13 +79,14 @@ export default function JobDescription({ list }: listArr) {
         { title: 'Qualifications', content: list[0].Qualifications },
       ]
       setContentArr(tempContentList)
+      console.log(contentArr)
     }
   }, [list])
 
   return (
-    <div className='w-full h-fit flex flex-row'>
-      <div className='flex-2 flex gap-5'>
-        {/* <Image alt='기업 이미지' src={list[0].Image} />*/}
+    <div className='w-full h-fit flex flex-row gap-5 mt-10'>
+      <div className='flex flex-col gap-5'>
+        <Image alt='기업 이미지' width='500' height='500' src={list[0].Image} />
         <TitleBox
           title={list[0]?.RecruitTitle}
           companyName={list[0].companyName}
@@ -94,7 +95,19 @@ export default function JobDescription({ list }: listArr) {
         <ContentBox contentArr={contentArr} />
       </div>
       <aside>
-        <div className='flex-1'>여기는 지원하기 파트</div>
+        <div className='w-64 p-6 gap-8 flex flex-col border-wanted-hover-gray-1'>
+          <h4>합격보상금</h4>
+          <div className='flex flex-row gap-5'>
+            <div className='flex flex-col gap-5'>
+              <h4 className='text-wanted-gray'>추천인</h4>
+              <h4>500,000원</h4>
+            </div>
+            <div className='flex flex-col gap-5'>
+              <h4 className='text-wanted-gray'>지원자</h4>
+              <h4>500,000원</h4>
+            </div>
+          </div>
+        </div>
       </aside>
     </div>
   )
