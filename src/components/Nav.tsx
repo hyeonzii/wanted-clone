@@ -48,7 +48,7 @@ export default function Nav() {
           {category.map((elem, index) => (
             <li key={index} className='align-middle'>
               {elem.link === 'noLink' ? (
-                <button>{elem.name}</button>
+                <button className='w-full'>{elem.name}</button>
               ) : (
                 <Link href={elem.link}>{elem.name}</Link>
               )}
